@@ -12,6 +12,6 @@ public interface PostRepository {
     List<Post> findAll();
     List<Post> findByTitle(String title);
     Post save(Post post);
-    Boolean remove(Post post);
+    Boolean remove(Long id);
     void update(Post post);
 }

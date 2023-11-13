@@ -66,17 +66,17 @@ public class JdbcTemplatePostRepository implements PostRepository{
     }
 
     @Override
-    public Boolean remove(Post post) {
+    public Boolean remove(Long id) {
         String query = "DELETE FROM post WHERE id = ?";
 
-        Optional<Post> toBeDeleted = findById(post.getId());
+        Optional<Post> toBeDeleted = findById(id);
         boolean isPresent = toBeDeleted.isPresent();
 
         if(isPresent == false) {
             return false;
         }
 
-        int cnt = jdbcTemplate.update(query, post.getId());
+        int cnt = jdbcTemplate.update(query, id);
 
         if(cnt == 1) {
             return true;

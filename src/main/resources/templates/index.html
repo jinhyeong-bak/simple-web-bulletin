@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link   th:href="@{/css/bootstrap.min.css}"
+            href="../css/bootstrap.min.css" rel="stylesheet">
     <title>게시판</title>
 </head>
 <body>
@@ -17,12 +19,17 @@
     </thead>
     <tbody>
     <tr th:each="post : ${posts}">
-        <td th:text="${post.postNumber}"></td>
-        <td th:text="${post.title}"></td>
-        <td th:text="${post.author}"></td>
-        <td th:text="${post.date}"></td>
+        <td th:text="${post.id}"></td>
+        <td><a th:href="@{/post/{id}(id=${post.id})}"  th:text="${post.title}">제목</a></td>
+        <td th:text="${post.userName}"></td>
+        <td th:text="${#temporals.format(post.registerDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
     </tr>
     </tbody>
 </table>
+
+<!-- 글쓰기 버튼 -->
+<a href="/write">
+    <button>글쓰기</button>
+</a>
 </body>
 </html>

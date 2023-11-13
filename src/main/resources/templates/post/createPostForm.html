@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기 폼</title>
+</head>
+<body>
+
+<!-- 글 등록 폼 -->
+<form action="/post/new" method="post">
+    <label for="nickname">닉네임:</label>
+    <input type="text" id="nickname" name="userName" required>
+    <br>
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <label for="postTitle">제목:</label>
+    <input type="text" id="postTitle" name="title" required>
+    <br>
+    <label for="postContent">내용:</label>
+    <textarea id="postContent" name="content" rows="4" required></textarea>
+    <br>
+    <button type="submit">등록</button>
+</form>
+
+</body>
+</html>

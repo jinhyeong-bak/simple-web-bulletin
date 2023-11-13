@@ -1,6 +1,7 @@
 package hello.simplewebbulletin.Repository;
 
 import hello.simplewebbulletin.domain.Post;
+import hello.simplewebbulletin.testUtil.PostTestUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import hello.simplewebbulletin.testUtil.PostTestUtil;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -17,13 +19,13 @@ class PostRepositoryTest {
 
     @Autowired
     private PostRepository postRepository;
-
+    private PostTestUtil postTestUtil = new PostTestUtil();
 
 
     @Test
     void findById() {
         //given
-        Post post = createDummyPost();
+        Post post = postTestUtil.createDummyPost();
 
         //when
         Post saved = postRepository.save(post);
@@ -33,22 +35,13 @@ class PostRepositoryTest {
         assertThat(saved.getId()).isEqualTo(found.getId());
     }
 
-    private static Post createDummyPost() {
-        Post post = new Post();
-        post.setTitle("테스트 게시글");
-        post.setContent("테스트용");
-        post.setRegisterDate(LocalDateTime.now());
-        post.setUserName("admin");
-        post.setPassword("0000");
-        return post;
-    }
 
     @Test
     void findByTitle() {
         //given
-        Post post1 = createDummyPost();
-        Post post2 = createDummyPost();
-        Post post3 = createDummyPost();
+        Post post1 = postTestUtil.createDummyPost();
+        Post post2 = postTestUtil.createDummyPost();
+        Post post3 = postTestUtil.createDummyPost();
 
         //when
         postRepository.save(post1);
@@ -66,9 +59,9 @@ class PostRepositoryTest {
     @Test
     void findAll(){
         //given
-        Post post1 = createDummyPost();
-        Post post2 = createDummyPost();
-        Post post3 = createDummyPost();
+        Post post1 = postTestUtil.createDummyPost();
+        Post post2 = postTestUtil.createDummyPost();
+        Post post3 = postTestUtil.createDummyPost();
 
         //when
         Post saved1 = postRepository.save(post1);
@@ -87,11 +80,11 @@ class PostRepositoryTest {
     @Test
     void delete() {
         //given
-        Post post = createDummyPost();
+        Post post = postTestUtil.createDummyPost();
 
         //when
         Post save = postRepository.save(post);
-        postRepository.remove(save);
+        postRepository.remove(save.getId());
         boolean isEmpty = postRepository.findById(save.getId()).isEmpty();
 
         //then
@@ -101,7 +94,7 @@ class PostRepositoryTest {
     @Test
     void update() {
         //given
-        Post post = createDummyPost();
+        Post post = postTestUtil.createDummyPost();
 
         //when
         Post saved = postRepository.save(post);

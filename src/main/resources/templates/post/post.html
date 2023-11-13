@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title th:text="${post.title}">게시글 상세보기</title>
+</head>
+<body>
+<div>
+    <h1 th:text="${post.title}"></h1>
+    <p>
+        <span th:text="${post.userName}"></span> |
+        <span th:text="${#temporals.format(post.registerDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    </p>
+    <p th:text="${post.content}"></p>
+
+    <!-- 댓글 작성 폼 -->
+    <form action="/post/addComment" method="post">
+        <input type="hidden" th:field="*{postId}" />
+
+        <input type="text" name="userName" placeholder="닉네임" required />
+
+        <input type="password"name="password" placeholder="비밀번호" required />
+
+        <textarea id="comment" name="comment" placeholder="댓글을 입력하세요." required></textarea>
+
+        <button type="submit">등록</button>
+    </form>
+</div>
+</body>
+</html>
