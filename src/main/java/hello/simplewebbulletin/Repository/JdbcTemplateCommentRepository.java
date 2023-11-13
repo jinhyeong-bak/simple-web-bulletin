@@ -30,7 +30,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository{
             comment.setId(rs.getLong("id"));
             comment.setPid(rs.getLong("pid"));
             comment.setContent(rs.getString("content"));
-            comment.setUsername(rs.getString("username"));
+            comment.setUserName(rs.getString("username"));
             comment.setPassword(rs.getString("password"));
 
             Timestamp timestamp = rs.getTimestamp("register_date");
@@ -68,7 +68,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository{
         parameters.put("registerDate", LocalDateTime.now());
         parameters.put("pid", comment.getPid());
         parameters.put("content", comment.getContent());
-        parameters.put("username", comment.getUsername());
+        parameters.put("username", comment.getUserName());
         parameters.put("password", comment.getPassword());
 
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
@@ -81,7 +81,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository{
     public void update(Comment comment) {
         String query = "UPDATE comment SET username = ?, password = ?, content = ?";
 
-        jdbcTemplate.update(query, comment.getUsername(), comment.getPassword(), comment.getContent());
+        jdbcTemplate.update(query, comment.getUserName(), comment.getPassword(), comment.getContent());
     }
     @Override
     public Boolean remove(Comment comment) {

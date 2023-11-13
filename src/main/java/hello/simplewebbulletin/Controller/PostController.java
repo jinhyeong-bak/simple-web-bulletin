@@ -1,6 +1,8 @@
 package hello.simplewebbulletin.Controller;
 
+import hello.simplewebbulletin.domain.Comment;
 import hello.simplewebbulletin.domain.Post;
+import hello.simplewebbulletin.service.CommentService;
 import hello.simplewebbulletin.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +17,11 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
-    public PostController(PostService postService){
+    public PostController(PostService postService, CommentService commentService){
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/")
@@ -42,6 +46,10 @@ public class PostController {
     public String getPost(@PathVariable Long postId, Model model){
         Post post = postService.readPost(postId);
         model.addAttribute("post", post);
+
+        List<Comment> comments = commentService.callCommentsOnSpecificPost(postId);
+        model.addAttribute("comments", comments);
+
         return "post/post";
     }
 

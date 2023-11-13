@@ -60,7 +60,7 @@ class CommentRepositoryTest {
         comment.setContent(TEST_CONTENT);
         comment.setRegisterDate(LocalDateTime.now());
         comment.setPid(TEST_PID);
-        comment.setUsername(TEST_USERNAME);
+        comment.setUserName(TEST_USERNAME);
         comment.setPassword(TEST_PASSWORD);
         return comment;
     }
@@ -99,7 +99,7 @@ class CommentRepositoryTest {
 
         //then
         assertThat(found.getContent()).isEqualTo(updated.getContent());
-        assertThat(found.getUsername()).isEqualTo(updated.getUsername());
+        assertThat(found.getUserName()).isEqualTo(updated.getUserName());
         assertThat(found.getPassword()).isEqualTo(updated.getPassword());
 
     }
